@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Mayracrud.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<AplicationUsuario,UsuarioRol,string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
