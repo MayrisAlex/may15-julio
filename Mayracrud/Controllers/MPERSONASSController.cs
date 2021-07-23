@@ -17,7 +17,7 @@ namespace Mayracrud.Controllers
             {
                 _applicationDbContext = applicationDbContext;
             }
-       [Authorize(Roles = "Admi, Usuario")]
+       [Authorize(Roles = "BackupJefe,Supervisora")]
                 public IActionResult Index()
                 {
                     List<Persona> ppersonas = new List<Persona>();
@@ -25,13 +25,13 @@ namespace Mayracrud.Controllers
                     return View(ppersonas);
                 }
 
-        [Authorize(Roles = "Admi")]
+        [Authorize(Roles = "BackupJefe")]
                 public IActionResult Create ()
                 {
           
                     return View();
                 }
-       [Authorize(Roles = "Admi")]
+       [Authorize(Roles = "BackupJefe")]
             [HttpPost]
                 public IActionResult Create(Persona ppersona)
                 {
@@ -50,7 +50,7 @@ namespace Mayracrud.Controllers
 
                     return RedirectToAction("Index");
                 }
-       [Authorize(Roles = "Admi")]
+       [Authorize(Roles = "BackupJefe")]
                 public IActionResult Edit (int id)
                 {
                     if(id==0)
@@ -65,7 +65,7 @@ namespace Mayracrud.Controllers
                     return View(ppersona);
 
                 }
-       [Authorize(Roles = "Admi")]
+       [Authorize(Roles = "BackupJefe")]
                 [HttpPost]
                 public IActionResult Edit (int id, Persona ppersona)
                 {
@@ -86,7 +86,23 @@ namespace Mayracrud.Controllers
                     return RedirectToAction("Index");
                 }
 
-                public IActionResult Delete (int id)
+        [Authorize(Roles = "BackupJefe,Supervisora")]
+                    public IActionResult Details(int id)
+                    {
+                        if (id == 0)
+
+                            return RedirectToAction("Index");
+
+                        Persona ppersona = _applicationDbContext.Persona.Where(y => y.Codigo == id).FirstOrDefault();
+                        if (ppersona == null)
+                            return RedirectToAction("Index");
+                        return View(ppersona);
+
+                    }
+
+
+
+        public IActionResult Delete (int id)
                 {
                     if (id == 0)
             
@@ -108,7 +124,7 @@ namespace Mayracrud.Controllers
 
                 }
 
-       [Authorize(Roles = "Admi")]
+       [Authorize(Roles = "BackupJefe")]
                 public IActionResult Desactivar (int id)
                 {
                     if (id == 0)
@@ -132,7 +148,7 @@ namespace Mayracrud.Controllers
 
                 }
 
-       [Authorize(Roles = "Admi")]
+       [Authorize(Roles = "BackupJefe")]
                 public IActionResult Activar(int id)
                 {
                     if (id == 0)
@@ -157,18 +173,6 @@ namespace Mayracrud.Controllers
                 }
 
 
-        [Authorize(Roles = "Admi, Usuario")]
-                public IActionResult Details(int id)
-                {
-                    if (id == 0)
-
-                        return RedirectToAction("Index");
-
-                    Persona ppersona = _applicationDbContext.Persona.Where(y => y.Codigo == id).FirstOrDefault();
-                   if(ppersona==null)
-                        return RedirectToAction("Index");
-                   return View(ppersona);
-            
-                 }
+       
     }
 }
