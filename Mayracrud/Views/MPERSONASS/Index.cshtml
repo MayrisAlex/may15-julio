@@ -52,19 +52,19 @@
             </td>
             <td>
 
-                @Html.ActionLink("*Editar", "Edit", new { id = item.Codigo }, new { onclick = "return confirm('Esta seguro de Editar el campo?');" }) │
+                @Html.ActionLink("*Editar", "Edit", new { id = item.Codigo }, new { onclick = "return confirm('Esta seguro de Editar el dato?');" }) │
 
-                @Html.ActionLink("*Detalle", "Details", new { id = item.Codigo }, new { onclick = "return confirm('Desea revisar el detalle  el campo?');" })│
+                @Html.ActionLink("*Detalle", "Details", new { id = item.Codigo }, new { onclick = "return confirm('Desea revisar el detalle  del campo?');" })│
                 @if (item.Estado == 1)
                 {
                     @Html.ActionLink("Desactivar", "Desactivar", new { id = item.Codigo }, new { onclick = "return confirm('Desea desactivar  el Dato?');" })
                 }
                 else
                 {
-                    @Html.ActionLink("Activar", "Activar", new { id = item.Codigo }, new { onclick = "return confirm('Desea Activar  el Dato?');" })
+                    @Html.ActionLink("Activar", "Activar", new { id = item.Codigo }, new { onclick = "return confirm('Desea Activar  el Campo??');" })
                 }
 
-                │ @Html.ActionLink("*Eliminar", "Delete", new { id = item.Codigo }, new { onclick = "return confirm('Esta seguro de Eliminar el campo?');" })
+                │ @Html.ActionLink("*Eliminar", "Delete", new { id = item.Codigo }, new { onclick = "return confirm('Esta seguro de Eliminar ?');" })
             </td>
         </tr>
 }
