@@ -32,8 +32,17 @@
                 <input asp-for="Estado" required class="form-control" />
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn bg-dark "/>
+                <label class=" control-label">Genero:</label>
+                <select asp-for="CodigoGenero"class="form-control" asp-items="ViewBag.CodigoGenero"></select>
+           
+                <span asp-validation-for="CodigoGenero" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn bg-dark " />
             </div>
         </form>
     </div>

@@ -1,7 +1,9 @@
 ﻿using Mayracrud.Data;
 using Mayracrud.Models;
+using Mayracrud.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +22,29 @@ namespace Mayracrud.Controllers
        [Authorize(Roles = "BackupJefe,Supervisora")]
                 public IActionResult Index()
                 {
-                    List<Persona> ppersonas = new List<Persona>();
-                    ppersonas = _applicationDbContext.Persona.ToList();
+
+                    List<PersonaGViewModel> ppersonas = new List<PersonaGViewModel>();
+            ppersonas = _applicationDbContext.Persona.Select(y => new PersonaGViewModel
+            {
+                Codigo = y.Codigo,
+                Nombre = y.Nombre,
+                Apellido=y.Apellido,
+                Estado=y.Estado,
+                Direccion=y.Direccion,
+                DescripcionGenero=y.CodigoGeneroNavigation.Descripcion,
+
+
+
+            }) .    ToList();
+            
                     return View(ppersonas);
                 }
 
         [Authorize(Roles = "BackupJefe")]
                 public IActionResult Create ()
                 {
+                ViewData["CodigoGenero"]= new SelectList(_applicationDbContext.Generos.Where(y=> y.Estado==1).ToList(),"Codigo","Descripcion");
+
           
                     return View();
                 }
@@ -58,7 +75,7 @@ namespace Mayracrud.Controllers
                         return RedirectToAction("Index");
                     }
                     Persona ppersona = _applicationDbContext.Persona.Where(y => y.Codigo == id).FirstOrDefault();
-                    //Persona pppersona = _applicationDbContext.Persona.Find(ma); 
+                    // Persona pppersona = _applicationDbContext.Persona.Find(id); 
                     if (ppersona==null)
                         return RedirectToAction("Index");
            

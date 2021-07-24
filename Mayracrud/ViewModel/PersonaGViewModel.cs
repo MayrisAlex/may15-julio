@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mayracrud.Models
+namespace Mayracrud.ViewModel
 {
-    public class Persona
+    public class PersonaGViewModel
     {
         public int Codigo { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Direccion { get; set; }
         public int Estado { get; set; }
-        public int CodigoGenero { get; set; }
+        public string DescripcionGenero { get; set; }
 
-        public virtual Genero CodigoGeneroNavigation { get; set; }
+
     }
 }

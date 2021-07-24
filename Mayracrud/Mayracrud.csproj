@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ModelosNuevos\**" />
     <Compile Remove="Views\Personas\**" />
+    <Content Remove="ModelosNuevos\**" />
     <Content Remove="Views\Personas\**" />
+    <EmbeddedResource Remove="ModelosNuevos\**" />
     <EmbeddedResource Remove="Views\Personas\**" />
+    <None Remove="ModelosNuevos\**" />
     <None Remove="Views\Personas\**" />
   </ItemGroup>
 

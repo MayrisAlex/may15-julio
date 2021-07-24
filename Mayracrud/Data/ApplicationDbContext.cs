@@ -14,21 +14,50 @@ namespace Mayracrud.Data
         {    
         }
         public virtual DbSet<Persona> Persona { get; set; }
-        protected override void OnModelCreating(ModelBuilder builder)
+        public virtual DbSet<Genero> Generos { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
-            builder.Entity<Persona>(may =>
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Genero>(entity =>
             {
-                may.HasKey(m => m.Codigo);
-                may.Property(m => m.Nombre).HasMaxLength(100).IsUnicode(false);
-                may.Property(m => m.Apellido).HasMaxLength(100).IsUnicode(false);
-                may.Property(m => m.Direccion).HasMaxLength(250).IsUnicode(false);
-                may.Property(m => m.Estado).IsUnicode(false);
+                entity.HasKey(e => e.Codigo);
 
+                entity.ToTable("Genero");
 
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
 
-                may.HasKey(m => m.Codigo);
+            modelBuilder.Entity<Persona>(entity =>
+            {
+                entity.HasKey(e => e.Codigo)
+                    .HasName("PK__Persona__06370DAD7E1EAA37");
 
+                entity.ToTable("Persona");
+
+                entity.Property(e => e.Apellido)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Direccion)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.CodigoGeneroNavigation)
+                    .WithMany(p => p.Personas)
+                    .HasForeignKey(d => d.CodigoGenero)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Persona_Genero");
             });
         }
     }
